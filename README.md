@@ -1,6 +1,5 @@
-# Enterprise-Data-Analytics-Demo
-Deploys a end to end working demo of a Data Analytics / Data Processing using Google Cloud.  All the services are connected, configured and ready to run.  All the artifacts are deployed and you can immedately start using.
-
+# Bigquery Pilot Project
+Deploy end to end BQ pilot project in your google cloud env. 
 
 ![alt tag](Architecture-Diagram.png)
 
@@ -15,9 +14,9 @@ You can deploy this to a new project or an existing project.
 
 ### To deploy to New Project (Preferred method)
 1. Open a Google Cloud Shell: http://shell.cloud.google.com/ 
-2. Type: git clone https://github.com/GoogleCloudPlatform/enterprise-data-analytics-demo.git
-3. Switch the prompt to the directory: cd enterprise-data-analytics-demo
-4. Run the deployment script: source deploy.sh  
+2. Type: git clone https://github.com/yadavj2008/data-analytics-pilot.git
+3. Switch the prompt to the directory: cd data-analytics-pilot
+4. Run the deployment script: source run.sh  
 5. Authorize the login (a popup will appear)
 6. Follow the prompts: Answer “Yes” for each.
 
@@ -29,25 +28,18 @@ You can deploy this to a new project or an existing project.
 
 
 ### After the deployment
-1. Open Cloud Composer.  You will see the Run-All-Dags DAG running.  This will download 3 years of taxi data and place in Google Storage, then process the data with Dataproc (Spark) and then deploy all the BigQuery stored procedures (sample code)
-2.  After the DAG is complete head over to BigQuery and execute the stored procedure "sp_create_taxi_external_tables".  This will create BigQuery tables for you to explore the data.  Read the top of the stored procedure for notes and review the code.
-3. Once you have the external tables created, run the stored procedure sp_create_taxi_internal_tables.  You are now ready to run the rest of the demo.  You can run it in any order and each stored procedure script has an undo script at the top.
-4.  You should also head over to Vertex AI and workbench.  Open Managed Notebooks and then browse to the stored account (notebooks folder).  There are some sample notebooks to do machine learning and BigQuery exploration.
+1. If you are choose new project then the terraform script will create a new project called "bigquery-pilot-xxxxx" in your cloud env.
+2. The script will create a service account through which terraform will Enables APIs, create resources like Bigquery dataset, VPC, subnet, firewall policies etc. 
 
 ### Possible Errors:
 1. If the script fails to enable a service or timeouts, you can rerun and if that does not work, run ./clean.sh and start over
 2. If the script has security type message (unauthorized), then double check the configure roles/IAM security.
-3. If you get the error "Error: Error when reading or editing Project Service : Request `List Project Services bigquery-demo-xxxxxxxxx` returned error: Failed to list enabled services for project bigquery-demo-xxxxxxxxx: Get "https://serviceusage.googleapis.com/v1/projects/bigquery-demo-xxxxxxxxx/services?alt=json&fields=services%2Fname%2CnextPageToken&filter=state%3AENABLED&prettyPrint=false".  You need to start over.  Run ./clean.sh and then run source deploy.sh again.  This is due to the service usage api not getting propagated with 4 minutes...
+3. If you get the error "Error: Error when reading or editing Project Service : Request `List Project Services bigquery-pilot-xxxxxxxxx` returned error: Failed to list enabled services for project bigquery-pilot-xxxxxxxxx: Get "https://serviceusage.googleapis.com/v1/projects/bigquery-demo-xxxxxxxxx/services?alt=json&fields=services%2Fname%2CnextPageToken&filter=state%3AENABLED&prettyPrint=false".  You need to start over.  Run ./clean.sh and then run source deploy.sh again.  This is due to the service usage api not getting propagated with 4 minutes...
   - Delete your failed project
 
 
 
 ## Folders
-- cloud-composer
-  - dags - all the DAGs for Airflow which run the system and seed the data
-  - data - all the bash and SQL scripts to deploy
-- dataproc
-  - the Spark SQL code
 - terraform
   - the entry point for when deploying this using a service account 
 - terraform-modules
