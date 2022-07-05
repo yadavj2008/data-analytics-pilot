@@ -4,6 +4,11 @@ Deploy end to end BQ pilot project in your google cloud env.
 ![alt tag](Architecture-Diagram.png)
 
 
+## Prerequisites
+
+1. Sign up on https://cloud.google.com/
+2. Create a GCP billing account. https://cloud.google.com/billing/docs/how-to/manage-billing-account
+
 ## Deploying using Cloud Shell
 You can deploy this to a new project or an existing project.
 - New Project:
@@ -34,7 +39,7 @@ You can deploy this to a new project or an existing project.
 ### Possible Errors:
 1. If the script fails to enable a service or timeouts, you can rerun and if that does not work, run ./clean.sh and start over
 2. If the script has security type message (unauthorized), then double check the configure roles/IAM security.
-3. If you get the error "Error: Error when reading or editing Project Service : Request `List Project Services bigquery-pilot-xxxxxxxxx` returned error: Failed to list enabled services for project bigquery-pilot-xxxxxxxxx: Get "https://serviceusage.googleapis.com/v1/projects/bigquery-demo-xxxxxxxxx/services?alt=json&fields=services%2Fname%2CnextPageToken&filter=state%3AENABLED&prettyPrint=false".  You need to start over.  Run ./clean.sh and then run source deploy.sh again.  This is due to the service usage api not getting propagated with 4 minutes...
+3. If you get the error "Error: Error when reading or editing Project Service : Request `List Project Services bigquery-pilot-xxxxxxxxx` returned error: Failed to list enabled services for project bigquery-pilot-xxxxxxxxx: Get "https://serviceusage.googleapis.com/v1/projects/bigquery-pilot-xxxxxxxxx/services?alt=json&fields=services%2Fname%2CnextPageToken&filter=state%3AENABLED&prettyPrint=false".  You need to start over.  Run ./clean.sh and then run source deploy.sh again.  This is due to the service usage api not getting propagated with 4 minutes...
   - Delete your failed project
 
 
